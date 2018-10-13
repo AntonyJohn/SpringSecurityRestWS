@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+  <persistence-unit name="sampleManager">
+    <provider>org.hibernate.ejb.HibernatePersistence</provider>
+    <!-- In a single module web application, no need to specify classes. Classes 
+			will be autodiscovered based on @Entity annotation -->
+    <class>com.antony.springrestws.login.dataobject.Users</class>
+    <class>com.antony.springrestws.login.dataobject.UserRoles</class>
+    <properties>
+      <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
+      <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
+      <property name="hibernate.connection.username" value="root"/>
+      <property name="hibernate.connection.password" value=""/>
+      <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/testws"/>
+      <property name="hibernate.search.default.directory_provider" value="filesystem"/>
+      <property name="hibernate.search.default.indexBase" value="/var/tmp"/>
+      <property name="hibernate.show_sql" value="true"/>
+      <property name="hibernate.archive.autodetection" value="class"/>
+    </properties>
+  </persistence-unit>
+</persistence>
