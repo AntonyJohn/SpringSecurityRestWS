@@ -42,7 +42,8 @@ public class EmployeeController {
         emp = new Employee();
         //users.setUsername(userID); 
         emp.setId(new Integer(empID));
-        Employee obj=employeeService.retrieveEmployee(emp,emp.getId());        
+        Employee obj=employeeService.retrieveEmployee(emp,emp.getId());
+        obj.setFirstName("XXXXX");
         return obj;				 
     }
     
