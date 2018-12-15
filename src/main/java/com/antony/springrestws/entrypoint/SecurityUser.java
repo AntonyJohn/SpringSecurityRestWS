@@ -5,37 +5,35 @@
  */
 package com.antony.springrestws.entrypoint;
 
+import com.antony.springrestws.Log;
 import com.antony.springrestws.login.dataobject.UserRoles;
 import com.antony.springrestws.login.dataobject.Users;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import org.slf4j.Logger;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  *
- * @author Elcot
+ * @author antony
  */
 public class SecurityUser extends Users implements UserDetails{
-
-    
+	
     public SecurityUser(Users user) {
-
-    if(user != null) {
-        this.setId(user.getId());
-        this.setUsername(user.getUsername());       
-        this.setPassword(user.getPassword());
-        this.setEnabled(user.getEnabled());    
-        this.setUserRolesCollection(user.getUserRolesCollection());
-    }
-
+	    if(user != null) {
+	        this.setId(user.getId());
+	        this.setUsername(user.getUsername());       
+	        this.setPassword(user.getPassword());
+	        this.setEnabled(user.getEnabled());    
+	        this.setUserRolesCollection(user.getUserRolesCollection());
+	    }
     }
     
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
+    	System.out.println("Start:: SecurityUser --> getAuthorities()"); 
         Collection<GrantedAuthority> authorities;
         authorities = new ArrayList<>();
         Collection<UserRoles> userRoles = this.getUserRolesCollection();
@@ -45,10 +43,8 @@ public class SecurityUser extends Users implements UserDetails{
                 authorities.add(authority);
             }
         }
-
+        System.out.println("End:: SecurityUser --> getAuthorities()"); 
         return authorities;
-        //System.out.println("XXXXXXXXXXXXXXXXXXXXXXXX");
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override

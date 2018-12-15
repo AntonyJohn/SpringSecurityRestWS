@@ -7,28 +7,19 @@ package com.antony.springrestws.entrypoint;
 
 /**
  *
- * @author Elcot
+ * @author antony
  */
-import com.antony.springrestws.entrypoint.MyAuthenticationDetailsSource.MyAuthenticationDetails;
-import com.antony.springrestws.login.dataobject.Users;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-
-
-
-import java.util.Collection;
- 
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
+import com.antony.springrestws.Log;
+import java.util.Collection;
  
 
  
@@ -40,26 +31,19 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
  
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        System.out.println("CustomAuthenticationProvider <<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>> authenticate()");
-        String username = authentication.getName();
+    	System.out.println("Start:: CustomAuthenticationProvider --> authenticate()"); 
+    	String username = authentication.getName();
         String password = (String) authentication.getCredentials();
- 
-        //Users user = (Users) userService.loadUserByUsername(username);
         SecurityUser secUser = (SecurityUser) userService.loadUserByUsername(username);
- 
         if (secUser == null) {
             throw new BadCredentialsException("Username not found.");
         }
  
-        System.out.println("Password:"+password+" DB Password:"+secUser.getPassword());
         if (!password.equals(secUser.getPassword())) {
             throw new BadCredentialsException("Wrong password.");
-        }
- 
-        //In-progress>>>>>>>>>>>>>>>> <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-        //Collection<? extends GrantedAuthority> authorities = user.getUserRolesCollection();
-        
+        }         
         Collection<? extends GrantedAuthority> authorities =secUser.getAuthorities();
+        System.out.println("End:: CustomAuthenticationProvider --> authenticate()"); 
         return new UsernamePasswordAuthenticationToken(secUser, password, authorities);
     }
  

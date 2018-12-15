@@ -12,7 +12,7 @@ import javax.persistence.Id;
 
 /**
  *
- * @author 15694
+ * @author antony
  */
 @Entity
 public class NewEntity implements Serializable {

@@ -8,8 +8,6 @@ package com.antony.springrestws.login.dao;
 import com.antony.springrestws.Base.dao.BaseJPA;
 import com.antony.springrestws.Base.exception.DataAccessException;
 import com.antony.springrestws.login.dataobject.Employee;
-import com.antony.springrestws.login.dataobject.Employee;
-import com.antony.springrestws.login.dataobject.Users;
 import com.antony.springrestws.login.valueobject.EmployeeVO;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -31,7 +29,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
- * @author Elcot
+ * @author antony
  */
 @Repository
 public class EmployeeDaoImpl extends BaseJPA<Employee> implements EmployeeDao{
@@ -56,7 +54,6 @@ public class EmployeeDaoImpl extends BaseJPA<Employee> implements EmployeeDao{
 		// TODO Auto-generated method stub
 		//super.save(domainObject);
 		try {	
-			System.out.println("Login DAO IMPL");
 			entityManager.persist(domainObject);
 		} catch (Exception e) {
 			throw new DataAccessException("Exception saving "
@@ -67,9 +64,7 @@ public class EmployeeDaoImpl extends BaseJPA<Employee> implements EmployeeDao{
 	@Transactional
 	public void update(Employee domainObject) {
 		// TODO Auto-generated method stub
-		//super.update(domainObject);
-            try {
-					
+        try {					
 		   entityManager.merge(domainObject);
 			
 		} catch (Exception e) {
@@ -87,8 +82,7 @@ public class EmployeeDaoImpl extends BaseJPA<Employee> implements EmployeeDao{
 	@Transactional
 	public Employee get(Class<Employee> domainClass, int id) {
 		// TODO Auto-generated method stub
-		//return super.get(domainClass, id);
-            try {
+        try {
 			return entityManager.find(domainClass, new Integer(id));
 		} catch (Exception e) {
 			throw new DataAccessException("Exception getting "
@@ -99,8 +93,7 @@ public class EmployeeDaoImpl extends BaseJPA<Employee> implements EmployeeDao{
 	@Transactional
 	public List<Employee> get(Class<Employee> domainClass, Employee domainObject) {
 		// TODO Auto-generated method stub
-		//return super.get(domainClass, domainObject);
-            List<Employee> results = new ArrayList<Employee>();
+        List<Employee> results = new ArrayList<Employee>();
 
 		@SuppressWarnings("rawtypes")
 		Map props = null;
@@ -151,8 +144,7 @@ public class EmployeeDaoImpl extends BaseJPA<Employee> implements EmployeeDao{
 	@Override
 	public Collection<Employee> getAll(Class<Employee> domainClass) {
 		// TODO Auto-generated method stub
-		//return super.getAll(domainClass);
-                TypedQuery<Employee> query = entityManager.createNamedQuery("Employee.findAll", Employee.class);
+        TypedQuery<Employee> query = entityManager.createNamedQuery("Employee.findAll", Employee.class);
 		
 		try {
 			return query.getResultList();
@@ -164,8 +156,7 @@ public class EmployeeDaoImpl extends BaseJPA<Employee> implements EmployeeDao{
 	@Transactional
 	public void delete(Employee domainObject, Integer id) {
 		// TODO Auto-generated method stub
-		//super.delete(domainObject, id);
-            try {
+        try {
 			domainObject = (Employee) entityManager.getReference(
 					domainObject.getClass(), id);
 			entityManager.remove(domainObject);

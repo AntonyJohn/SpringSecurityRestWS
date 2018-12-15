@@ -5,20 +5,20 @@
  */
 package com.antony.springrestws.entrypoint;
 
+import com.antony.springrestws.Log;
 import com.antony.springrestws.login.dataobject.Users;
 import com.antony.springrestws.login.service.LoginService;
-import com.antony.springrestws.login.valueobject.UsersVO;
-import java.util.List;
+
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Component;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
 /**
  *
- * @author Elcot
+ * @author antony
  */
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
@@ -28,16 +28,11 @@ public class CustomUserDetailsService implements UserDetailsService {
     
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-        System.out.println("CustomUserDetailsService >>>>>>>>>>>>> loadUserByUsername");
-    
-    Users user = loginService.findUserByName(new Users(),userName);
-
-    if(user == null){
-        throw new UsernameNotFoundException("UserName "+userName+" not found");
-    } 
-    return new SecurityUser(user);
-}
-    
-
-
+    	System.out.println("Start:: CustomUserDetailsService --> loadUserByUsername()");     
+    	Users user = loginService.findUserByName(new Users(),userName);
+	    if(user == null){
+	        throw new UsernameNotFoundException("UserName "+userName+" not found");
+	    } 
+	    return new SecurityUser(user);
+    }
 }

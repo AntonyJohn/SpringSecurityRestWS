@@ -5,10 +5,12 @@
  */
 package com.antony.springrestws.login.service;
 
+import com.antony.springrestws.Log;
 import com.antony.springrestws.login.dao.EmployeeDao;
-import com.antony.springrestws.login.dao.LoginDao;
 import com.antony.springrestws.login.dataobject.Employee;
 import java.util.List;
+
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,19 +23,18 @@ import org.springframework.stereotype.Service;
 public class EmployeeService {
     
     @Autowired
-    private EmployeeDao employeeDao;
+    private EmployeeDao employeeDao;    
+    private static @Log Logger LOG;	
     
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @SuppressWarnings({ "unchecked" })
     public Employee retrieveEmployee(Employee empDo, Integer empId) {
-
-        System.out.println("ZZZZZZZZZZZZZZZZZZ:findUserByName():"+empId);     
+    	LOG.info("EmployeeService --> retrieveEmployee()");
         return employeeDao.get((Class<Employee>) empDo.getClass(),empId);                                      
     }
     
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @SuppressWarnings({ "unchecked" })
     public List<Employee> retrieveAllEmployee(Employee empDo) {
-
-        System.out.println("ZZZZZZZZZZZZZZZZZZ:retrieveAllEmployee():");     
+    	LOG.info("EmployeeService --> retrieveAllEmployee()");
         return (List<Employee>) employeeDao.getAll((Class<Employee>) empDo.getClass());                                      
     }
 }

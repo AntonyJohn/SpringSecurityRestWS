@@ -10,7 +10,7 @@ import com.antony.springrestws.login.dataobject.Employee;
 
 /**
  *
- * @author Elcot
+ * @author antony
  */
 public interface EmployeeDao extends Dao<Employee>{
     

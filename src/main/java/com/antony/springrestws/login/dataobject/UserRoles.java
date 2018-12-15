@@ -21,7 +21,7 @@ import org.springframework.security.core.GrantedAuthority;
 
 /**
  *
- * @author Elcot
+ * @author antony
  */
 @Entity
 @Table(name = "user_roles")

@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 /**
  *
- * @author Elcot
+ * @author antony
  */
 public class EmployeeVO implements Serializable{
     
