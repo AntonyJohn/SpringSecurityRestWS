@@ -23,12 +23,10 @@ import com.antony.springrestws.login.dataobject.Users;
 import com.antony.springrestws.login.valueobject.UsersVO;
 import java.util.Map;
 import javax.persistence.NoResultException;
-import javax.persistence.NonUniqueResultException;
 import javax.persistence.TypedQuery;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.ConvertUtils;
 import org.apache.commons.beanutils.PropertyUtils;
-import org.springframework.security.core.userdetails.User;
 
 
 /**
@@ -56,9 +54,7 @@ public class LoginDaoImpl extends BaseJPA<Users> implements LoginDao {
 	@Transactional
 	public void save(Users domainObject) {
 		// TODO Auto-generated method stub
-		//super.save(domainObject);
 		try {	
-			System.out.println("Login DAO IMPL");
 			entityManager.persist(domainObject);
 		} catch (Exception e) {
 			throw new DataAccessException("Exception saving "
@@ -69,11 +65,8 @@ public class LoginDaoImpl extends BaseJPA<Users> implements LoginDao {
 	@Transactional
 	public void update(Users domainObject) {
 		// TODO Auto-generated method stub
-		//super.update(domainObject);
-            try {
-					
-		   entityManager.merge(domainObject);
-			
+        try {				
+		   entityManager.merge(domainObject);			
 		} catch (Exception e) {
 			throw new DataAccessException("Exception in updating "
 					+ domainObject.getClass().getName() +" "+e.getMessage(), e);
@@ -89,8 +82,7 @@ public class LoginDaoImpl extends BaseJPA<Users> implements LoginDao {
 	@Transactional
 	public Users get(Class<Users> domainClass, int id) {
 		// TODO Auto-generated method stub
-		//return super.get(domainClass, id);
-            try {
+        try {
 			return entityManager.find(domainClass, new Integer(id));
 		} catch (Exception e) {
 			throw new DataAccessException("Exception getting "
@@ -101,8 +93,7 @@ public class LoginDaoImpl extends BaseJPA<Users> implements LoginDao {
 	@Transactional
 	public List<Users> get(Class<Users> domainClass, Users domainObject) {
 		// TODO Auto-generated method stub
-		//return super.get(domainClass, domainObject);
-            List<Users> results = new ArrayList<Users>();
+        List<Users> results = new ArrayList<Users>();
 
 		@SuppressWarnings("rawtypes")
 		Map props = null;
@@ -159,8 +150,7 @@ public class LoginDaoImpl extends BaseJPA<Users> implements LoginDao {
 	@Transactional
 	public void delete(Users domainObject, Integer id) {
 		// TODO Auto-generated method stub
-		//super.delete(domainObject, id);
-            try {
+        try {
 			domainObject = (Users) entityManager.getReference(
 					domainObject.getClass(), id);
 			entityManager.remove(domainObject);
@@ -195,7 +185,6 @@ public class LoginDaoImpl extends BaseJPA<Users> implements LoginDao {
 	public List executeQuery(String queryName, String[] fieldArray , HashMap parameterMap){
 		try{
 			List results = new ArrayList(); 
-			System.out.println("entityManager:"+queryName);
 			Query query = entityManager.createNativeQuery(queryName);
 			List<UsersVO> resultlist = new ArrayList<UsersVO>();	
 			
@@ -222,7 +211,6 @@ public class LoginDaoImpl extends BaseJPA<Users> implements LoginDao {
 				if((resultlist.size() > 0) && (fieldArray!=null)){
 					Object[][] requestobj = (Object[][]) resultlist.toArray(new Object[resultlist.size()][]);
 					
-					System.out.println("requestobj:"+requestobj);
 					for(int k=0;k<requestobj.length;k++){
 						HashMap resultmap = new HashMap();
 						for(int j=0;j<requestobj[k].length;j++){
@@ -238,21 +226,7 @@ public class LoginDaoImpl extends BaseJPA<Users> implements LoginDao {
 			throw new DataAccessException("Exception executing procedure" +e);
 			
 		}
-	}
-        
-        
-       /* @SuppressWarnings({ "unchecked", "rawtypes", "unused" })	
-	@Transactional (isolation=Isolation.DEFAULT,propagation=Propagation.REQUIRED,rollbackFor=Exception.class)
-	public Users executeNativeQuery(String userName){
-            TypedQuery<Users> query = entityManager.createNamedQuery("select u from Users u where u.username=?1", Users.class);
-		query.setParameter(1, userName);
-		
-		try {
-			return query.getSingleResult();
-		} catch (NonUniqueResultException e) {
-			return null;
-                }
-        }*/
+	}                      
 
     @Override
     public Users executeNativeQuery(Class<Users> domainClass, String userName) throws NoResultException {

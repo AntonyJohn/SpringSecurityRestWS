@@ -4,9 +4,11 @@
 package com.antony.springrestws.login.controller;
 
 
+import com.antony.springrestws.Log;
 import com.antony.springrestws.login.dataobject.Users;
 import java.util.List;
 
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -32,7 +34,7 @@ public class LoginController {
 
     @Autowired
     private LoginService loginService;
-
+    private static @Log Logger LOG;
     Users users;
     
     //Authenticate	
@@ -40,9 +42,9 @@ public class LoginController {
     @RequestMapping(value="/authenticate", method=RequestMethod.POST, headers="Accept=application/json")
     @ResponseStatus(HttpStatus.OK)
     public@ResponseBody List  authenticate(@RequestBody UsersVO loginid){					
-    
-        System.out.println("Login Controller Inside SampleWS: "+loginid.getId());							
-        List obj=loginService.getAuthenticate(loginid);		
+    	LOG.info("Start:: LoginController --> authenticate() - POST");     
+        List obj=loginService.getAuthenticate(loginid);	
+        LOG.info("End:: LoginController --> authenticate() - POST");
         return obj;				 
     }
     
@@ -51,15 +53,14 @@ public class LoginController {
     @RequestMapping(value="/user", method=RequestMethod.POST, headers={"Content-Type=application/json","Accept=application/json"})
     @ResponseStatus(HttpStatus.OK)
     public@ResponseBody List  user(@RequestBody UsersVO loginvo){					
-    
+    	LOG.info("Start:: LoginController --> user() - POST");
         users=new Users();
         users.setUsername(loginvo.getUsername());
         users.setPassword(loginvo.getPassword());        
         users.setEnabled((short)1);
-        users.setId(loginvo.getId());
-        
-        System.out.println("Login Controller Inside SampleWS: "+loginvo.getUsername());							
-        List obj=loginService.createUser(users);		
+        users.setId(loginvo.getId());        
+        List obj=loginService.createUser(users);	
+        LOG.info("Start:: LoginController --> user() - POST");
         return obj;				 
     }
     
@@ -68,11 +69,11 @@ public class LoginController {
     @RequestMapping(value="/user", method=RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public@ResponseBody List  retrieveUser(@RequestParam("userID") String userID){					
-           
+    	LOG.info("Start:: LoginController --> retrieveUser() - GET");
         users=new Users();
-        //users.setUsername(userID); 
         users.setId(new Integer(userID));
-        List obj=loginService.retrievUser(users);        
+        List obj=loginService.retrievUser(users); 
+        LOG.info("End:: LoginController --> retrieveUser() - GET");
         return obj;				 
     }
     
@@ -81,15 +82,14 @@ public class LoginController {
     @RequestMapping(value="/user", method=RequestMethod.PUT, headers="Accept=application/json")
     @ResponseStatus(HttpStatus.OK)
     public@ResponseBody List  updateUser(@RequestBody UsersVO loginvo){					
-    
+    	LOG.info("Start:: LoginController --> updateUser() - PUT");
         users=new Users();
         users.setUsername(loginvo.getUsername());      
         users.setPassword(loginvo.getPassword());
         users.setEnabled((short)1);
-        users.setId(1);
-        
-        System.out.println("Login Controller Inside SampleWS update: "+loginvo.getId());							
-        List obj=loginService.updateUser(users);		
+        users.setId(1);        
+        List obj=loginService.updateUser(users);
+        LOG.info("End:: LoginController --> updateUser() - PUT");
         return obj;				 
     }
     
@@ -98,10 +98,11 @@ public class LoginController {
     @RequestMapping(value="/user", method=RequestMethod.DELETE, headers="Accept=application/json")
     @ResponseStatus(HttpStatus.OK)
     public@ResponseBody List  removeUser(@RequestBody UsersVO loginvo){					
-    
+    	LOG.info("Start:: LoginController --> removeUser() - DELETE");
         users=new Users();
         users.setId(loginvo.getId());        							
-        List obj=loginService.removeUser(users);		
+        List obj=loginService.removeUser(users);
+        LOG.info("End:: LoginController --> removeUser() - DELETE");
         return obj;				 
     }   
     
