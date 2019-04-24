@@ -43,7 +43,7 @@ public class EmployeeController {
         emp = new Employee();       
         emp.setId(new Integer(empID));
         Employee obj=employeeService.retrieveEmployee(emp,emp.getId());
-        LOG.info("End::asdf EmssdfsadfadfployeasdfeController --> retrieveEmployee()");
+        LOG.info("End::asdf 123EmssdfsadfadfployeasdfeController --> retrieveEmployee()");
         return obj;				 
     }
     
