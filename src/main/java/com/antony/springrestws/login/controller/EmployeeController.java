@@ -39,7 +39,7 @@ public class EmployeeController {
     @RequestMapping(value="/retrieveEmployee", method=RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public@ResponseBody Employee  retrieveEmployee(@RequestParam("empID") String empID){					
-    	LOG.info("Start:ddd: 123ff55fffdsdfffs896EmployeeController --> retrieveEmployee()");    	
+    	LOG.info("Start:ddd: 123ff55fffdssdfdfffs896EmployeeController --> retrieveEmployee()");    	
         emp = new Employee();       
         emp.setId(new Integer(empID));
         Employee obj=employeeService.retrieveEmployee(emp,emp.getId());
